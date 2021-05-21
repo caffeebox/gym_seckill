@@ -31,7 +31,7 @@ def cookie_to_dict(cookie):
         cookie_dict[name] = value
     return cookie_dict
 
-def time_visual(gym_time):
+def time_visual(gym_time, fill_list):
     ''' 红色(值为0)表示被预定，白色为数据缺失，只有绿色区域(值为1)能够预约 '''
     id_index, data_time = [], []
     for gym_id, resp in gym_time.items():
@@ -42,14 +42,18 @@ def time_visual(gym_time):
             time_col.append(time_dict.get('value'))
             enable.append(int('disabled' not in time_dict))
         data_time.append(pd.Series(enable, index=time_col))
-        if gym_id in opts.gym_id2name:
-            id_index.append(opts.gym_id2name.get(gym_id))
+        if gym_id in opts.gym_id2name.get(opts.category):
+            id_index.append(opts.gym_id2name.get(opts.category).get(gym_id))
         else:
             id_index.append(gym_id)
     s = pd.DataFrame(data_time, index=id_index)
     plt.figure(0)
+    plt.title(f'{opts.category} on {opts.date}', y=-0.14)
+    text = f'No. {fill_list} are not open at the current time.'
+    if fill_list:
+        plt.text(0, 0 ,text, va='bottom', wrap=True)
     my_color = LinearSegmentedColormap.from_list('', ['red', 'green'])
-    sns.heatmap(s, cbar=False, cmap=my_color, linewidths=1, annot=True, center=0.4)
+    sns.heatmap(s, cbar=False, cmap=my_color, linewidths=1, annot=True, center=0.4, yticklabels=True)
     plt.show()
 
 def time_enable(resp):
