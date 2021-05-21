@@ -4,6 +4,8 @@ import argparse
 #----- 信息保密，请替换自己的cookie和ua ------------
 user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/333333 MicroMessenger/8.0.4(0x1800042c) NetType/WIFI Language/zh_CN'
 cookie = 'ASPSESSIONIDCCQDBRCD=HHFmMACCAIACBBBEFPBNBMAE; myopenid=orZpA5%5Fc7wOCH8VxtV9PgcQ2IW8E; njurst=1.0.1; ifrmsrc=%2Fundefined; njurst=1.0.1; casuid=183333333; casuser=%25u3333%25u3333%25u3333'
+
+
 badminton_id2name = {16:'1F1N', 17:'1F2N', 18:'1F3N', 19:'1F4N', 20:'1F5N', 21:'1F6N', 22:'1F7N', 23:'1F8N',
                     67:'5F1N', 68:'5F2N', 69:'5F3N', 70:'5F4N', 71:'5F5N', 72:'5F6N', 73:'5F7N', 74:'5F8N'}
 pingpang_id2name = {26:'1F1N', 27:'1F2N', 28:'1F3N', 38:'1F7N', 39:'1F8N', 40:'1F9N', 41:'1F10N', 42:'1F11N',
@@ -34,6 +36,7 @@ def opts_init():
     parser.add_argument('--uid', type=str, default='183333333')
     parser.add_argument('--name', type=str, default='XXX')
     parser.add_argument('--ph', type=str, default='13333333333')
+
     parser.add_argument('--user_agent', type=str, default=user_agent)
     parser.add_argument('--cookie', type=str, default=cookie)
     parser.add_argument('--gym_id2name', type=dict, default=gym_id2name)
