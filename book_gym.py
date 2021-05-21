@@ -31,8 +31,9 @@ class Gym_Book():
         else:
             query_l = self.opts.custom_l
         opened_id = self._query_id()
-        query_list = set(query_l) & set(opened_id)
-        fill_list = set(query_l) - set(opened_id)
+        query_list = list(set(query_l) & set(opened_id))
+        fill_list = list(set(query_l) - set(opened_id))
+        query_list.sort(key=query_l.index)
         return query_list, fill_list
 
     def _query_id(self):
@@ -83,17 +84,18 @@ class Gym_Book():
             exit()
 
     def seckill(self):
-        opened_id = self._query_id()
-        query_list = set(self.opts.order_info_l) & set(opened_id)
+        ''' 预约场地 '''
+        query_list, _ = self._query_list()
         for changguan_id in query_list:
-            resp = self.get_idgym(changguan_id)
+            resp = self._get_idgym(changguan_id)
             enable_l = time_enable(resp)
             if set(self.opts.time_s) <= set(enable_l):
-                self.order_place(changguan_id)
+                self._order_place(changguan_id)
                 return True
         print('No gym on current period.')
 
-    def order_place(self, gym_id):
+    def _order_place(self, gym_id):
+        ''' 发送预约表单 '''
         url = 'http://yy-tky.nnu.edu.cn/inc/ajax/save/saveYuyue'
         cookie_d = cookie_to_dict(self.opts.cookie)
         cur_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -112,7 +114,7 @@ class Gym_Book():
         time_num = len(self.opts.time_s)
         if time_num not in [1, 2]:
             print('no time choised or beyond two hours')
-            exit()
+            return False
         for i in range(time_num):
             payload.append(('yuyue_time', self.opts.time_s[i]))
         self.session.headers.update({

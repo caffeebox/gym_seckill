@@ -33,8 +33,12 @@ import seaborn as sns
 # result = [int(a.get('changguan_id')) for a in resp_l]
 # print(result)
 
-import time
+# import time
+# cur = time.strftime('%Y-%m-%d+%H:%M:%S', time.localtime())
+# print(cur)
 
-cur = time.strftime('%Y-%m-%d+%H:%M:%S', time.localtime())
-print(cur)
-
+# list1 = [3, 2, 5, 6, 1, 4, 7]
+# list2 = [1, 3, 5, 6, 2]
+# set1 = list(set(list1) & set(list2))
+# set1.sort(key=list1.index)
+# print(set1)

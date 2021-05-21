@@ -57,6 +57,7 @@ def time_visual(gym_time, fill_list):
     plt.show()
 
 def time_enable(resp):
+    ''' 返回可以预约的时间 '''
     soup = BeautifulSoup(resp.get('data').get('time'), 'lxml')
     time_enable_l = []
     for item in soup.find_all('input'):
